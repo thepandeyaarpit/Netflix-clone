@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, on
 
 const AuthContext = createContext()
 
-export function AuthContextProvider({children}) {
+export function AuthContextProvider({ children }) {
 
     const [user, setUser] =  useState({});
 
@@ -24,7 +24,7 @@ export function AuthContextProvider({children}) {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser)
         });
-        return () => {
+        return() => {
             unsubscribe();
         };
     });
@@ -39,4 +39,4 @@ export function AuthContextProvider({children}) {
 
 export function UserAuth() {
     return useContext(AuthContext);
-}
+  }
