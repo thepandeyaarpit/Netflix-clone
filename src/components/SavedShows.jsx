@@ -6,37 +6,37 @@ import { updateDoc, doc, onSnapshot } from 'firebase/firestore';
 import {AiOutlineClose} from 'react-icons/ai';
 
 const SavedShows = () => {
-    const [movies, setMovies] = useState([])
+    const [movies, setMovies] = useState([]);
 
     const {user} = UserAuth()
 
     const slideLeft = () => {
-        var slider = document.getElementById('slider')
+        var slider = document.getElementById('slider');
         slider.scrollLeft = slider.scrollLeft - 500;
     };
 
     const slideRight = () => {
-        var slider = document.getElementById('slider')
+        var slider = document.getElementById('slider');
         slider.scrollLeft = slider.scrollLeft + 500;
     };
 
     useEffect(() => {
-        onSnapshot(doc(db, 'users', `${user?.email}`, (doc)=> {
+        onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
             setMovies(doc.data()?.savedShows);
-        }))
+        });
     }, [user?.email]);
 
     const movieRef = doc(db, 'users', `${user?.email}`)
     const deleteShow = async (passedID) => {
         try{
-            const result = movies.filter((item)=> item.id !== passedID)
+            const result = movies.filter((item) => item.id !== passedID)
             await updateDoc(movieRef, {
                 savedShows: result
-            });
+            })
         } catch(error){
             console.log(error);
         }
-    };
+    }
 
 
   return (
